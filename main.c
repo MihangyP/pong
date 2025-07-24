@@ -4,21 +4,26 @@ int	main(void)
 {
 	InitWindow(W_WIDTH, W_HEIGHT, "Pong");
 
-	Vector2	player_position = {(W_WIDTH - BAR_WIDTH) / 2, W_HEIGHT - PAD};
+	Rectangle	player;
+	player.x = (W_WIDTH - BAR_WIDTH) / 2.0f;
+	player.y =  (float)(W_HEIGHT - PAD);
+	player.width = (float)BAR_WIDTH;
+	player.height = (float)BAR_HEIGHT;
 	Vector2 ball_position = {W_WIDTH / 2, W_HEIGHT / 2};
 
 	SetTargetFPS(60);
-	int speed = 3;
+	int speed = 5;
 	int dx = speed;
 	int dy = speed;
 	while (!WindowShouldClose()) {
-		
+		bool has_collision_player = CheckCollisionCircleRec(ball_position, BALL_RADIUS, player);
 		if (ball_position.x + (BALL_RADIUS / 2) >= W_WIDTH - 1 || 
-			ball_position.x - (BALL_RADIUS / 2) <= 0)  {
+			ball_position.x - (BALL_RADIUS / 2) <= 0) {
 			dx *= -1;
 		}
 		if (ball_position.y + (BALL_RADIUS / 2) >= W_HEIGHT - 1 ||
-			ball_position.y - (BALL_RADIUS / 2) <= 0) {
+			ball_position.y - (BALL_RADIUS / 2) <= 0 || 
+			has_collision_player) {
 			dy *= -1;
 		}
 		ball_position.x += dx;
@@ -27,14 +32,14 @@ int	main(void)
 		{
 			ClearBackground(GetColor(0x181818));
 			if (IsKeyDown(KEY_RIGHT)) {
-				if (player_position.x + BAR_WIDTH < W_WIDTH)
-					player_position.x += PLAYER_SPEED;
+				if (player.x + BAR_WIDTH < W_WIDTH)
+					player.x += PLAYER_SPEED;
 			}
 			if (IsKeyDown(KEY_LEFT)) {
-				if (player_position.x > 0)
-					player_position.x -= PLAYER_SPEED;
+				if (player.x > 0)
+					player.x -= PLAYER_SPEED;
 			}
-			DrawRectangle(player_position.x, player_position.y, BAR_WIDTH, BAR_HEIGHT, GOLD);
+			DrawRectangleRec(player, GOLD);
 			DrawCircleV(ball_position, BALL_RADIUS, RED);
 		}
 		EndDrawing();
