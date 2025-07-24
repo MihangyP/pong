@@ -6,5 +6,14 @@
 
 # define W_WIDTH 800
 # define W_HEIGHT 600
+# define BAR_WIDTH 70
+# define BAR_HEIGHT 10
+# define PAD 50
+
+typedef struct
+{
+	int pos_x;
+	int	pos_y;
+}	t_player;
 
 #endif // PONG_H
