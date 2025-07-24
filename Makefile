@@ -4,8 +4,8 @@ HEADER_FILES = pong.h
 CC = cc
 CFLAGS = -Wall -Wextra
 RM = rm -rf
-INCLUDING = -I.
-LINKING =
+INCLUDING = -I. -I./raylib/include
+LINKING = -Lraylib/lib -l:libraylib.a -lm
 
 all: $(NAME)
 
