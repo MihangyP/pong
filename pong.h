@@ -9,6 +9,8 @@
 # define BAR_WIDTH 70
 # define BAR_HEIGHT 10
 # define PAD 50
+# define PLAYER_SPEED 5
+# define BALL_RADIUS 8
 
 typedef struct
 {
